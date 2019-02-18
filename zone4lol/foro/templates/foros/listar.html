@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+
+<body>
+<div class="tituloforos"><h2>Foros Zone4LoL</h2></div>
+<div class="foro">
+    <h3>¡Que mejor manera de relajarse que criticar un poco!</h3>
+    <hr>
+    <p style="margin-bottom: 2%;">Recuerda que esta prohibido usar lenguaje ofensivo, respeta las opiniones de los demas y asi trabajaras por hacer una comunidad mejor.</p>
+    <input class="form-control" style="width: 25%;" type="text" id="myInput" onkeyup="myFunction()" placeholder="Filtrar foros...">
+    <hr>
+    <table id="tablaForo" class="table table-striped table-dark">
+    <thead>
+        <tr class="header">
+            <td><b>Foro</b></td>
+            <td><b>Numero de comentarios</b></td>
+            {% if request.user.is_staff %}
+            <td><b>Opciones</b></td>
+            {% endif %}
+        </tr>
+    </thead>
+
+    <tbody>
+    {% if object_list %}
+    {% for foro in object_list %}
+        <tr>
+
+            <td><a href="{% url 'posts_listar' foro.id%}"><p class="h5">{{ foro.nombre }}</p></a></td>
+            <td><p class="numerocom"><b>{{ foro.countPosts }}</b></p></td>
+            {% if request.user.is_staff %}
+                <td>
+                    <a class="btn btn-danger" href="{% url 'foro_eliminar' foro.id%}">Eliminar</a>
+                </td>
+            {% endif%}
+        </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No hay foros registrados.</h1>
+    {% endif %}
+    </tbody>
+</table>
+    {% if request.user.socio.socio %}
+        <a class="btn btn-primary" href="{% url 'foro_crear' %}">+Crear foro</a>
+    {% endif %}
+</div>
+</body>
+
+
+{% endblock %}

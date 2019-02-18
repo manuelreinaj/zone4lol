@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<body style="background: linear-gradient(to right, #e6e6e6, white);">
+<div class="col-sm-4 card" style=" margin: 5%;margin-left: 30%; border: 1px solid #931517; padding: 1%;">
+    <form method="post">
+        {% csrf_token %}
+        <h3>¿Desea eliminar el evento {{evento.titulo}}?</h3>
+        <button class="btn btn-danger" type="submit">Si, eliminar</button>
+        <a class="btn btn-secondary" href="{% url 'eventos_listar' %}" >No, Gracias</a>
+    </form>
+</div>
+</body>
+{% endblock %}

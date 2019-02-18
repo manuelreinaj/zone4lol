@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="col-sm-4">
+    <form method="post">
+        {% csrf_token %}
+        <h3>¿Desea eliminar al socio {{object.first_name}} {{socio.last_name}}?</h3>
+        <button class="btn btn-danger" type="submit">Si, eliminar</button>
+        <a class="btn btn-default" href="{% url 'socios_listar' %}">No, Gracias</a>
+    </form>
+</div>
+{% endblock %}

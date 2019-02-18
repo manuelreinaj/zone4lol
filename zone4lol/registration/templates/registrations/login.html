@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% block title %}Iniciar sesión{% endblock %}
+{% load staticfiles %}
+
+{% block content %}
+<body style="background: url('{% static 'img/fondo1.jpg' %}') no-repeat center center fixed;-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;">
+<div class="formlogin">
+<p class="h3">Iniciar sesión</p>
+<hr>
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <label for="username">Nombre de Usuario:</label>
+                <input class="form-control" type="text" name="username"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <label for="username">Contraseña:</label>
+                <input class="form-control" type="password" name="password"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <input style="margin-right: 2%;" class="btn btn-primary" type="submit" value="Ingresar"/>
+                <a href="{% url 'password_reset' %}">Olvide mi contraseña</a>
+                
+            </div>
+        </div>
+    </div>
+
+</form>
+</div>
+</body>
+
+{% endblock %}

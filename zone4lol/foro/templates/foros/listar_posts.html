@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<body>
+    {% if request.user.is_authenticated %}
+    <div class="comentarios">
+        <h2 style="margin-left: 15%;margin-right: 15%;color: white;">Comentarios</h2>
+        {% if request.user.socio.socio %}
+            {% if lista_foros %}
+            {% for f in lista_foros %}
+            <a style="margin-left: 75%;" class="btn btn-primary" href="{% url 'post_crear' f.id %}">+Comentar</a>
+            {% endfor %}
+            {% endif %}
+        <hr style="margin-left: 15%;margin-right: 16%; border:1px solid black;">
+
+        {% if lista_posts %}
+
+        {% for posts in lista_posts %}
+        <div class="comentario">
+            <p class="h3">{{ posts.titulo }}</p>
+            <hr>
+            <p class="h6" style="margin-bottom: 5%;">{{ posts.contenido }}</p>
+            <hr>
+            {% if request.user.is_staff %}
+                <a class="btn btn-danger" href="{% url 'post_eliminar' posts.id %}">Eliminar</a>
+            {% endif %}
+            <p style="color: grey; margin-left: 60%"><i>{{posts.created}} ,{{ posts.autor }}</i> <img style="width: 10%;" src="{{ posts.autor.socio.imagen.url }}"></p>
+
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1 style="color: white; margin-left: 20%;">No hay posts registrados en este foro.</h1>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% if not request.user.is_authenticated %}
+    <div class="comentarios">
+        <h1 style="color: white; margin-left: 15%;">Inicia sesion para poder ver los posts de este foro.</h1>
+    </div>
+    {% endif %}
+</body>
+
+
+
+
+{% endblock %}

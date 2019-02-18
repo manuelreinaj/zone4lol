@@ -1,0 +1,16 @@
+{% extends 'main/base2.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+<div class="fondohome">
+	<img class="imagenfondohome" src="{% static 'img/fondohome.jpg'%}">
+	<div class="divlogohome"><img class="imagenfondohome2" src="{% static 'img/logo-plano-grande.png' %}"></div>
+	<div class="divbotoneshome"><a class="btn btn-secondary botoniz" href="{% url 'nosotros' %}" role="button">Continuar sin registrar</a><a class="btn btn-danger botonder" href="{% url 'usuario_signup' %}" role="button">REGISTRAME</a></div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<body>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+ 
+          <div class="card-body">
+            <h5 class="card-title text-center">Comentar</h5>
+              <hr>	
+        {% csrf_token %}
+        {{ form.as_p }}
+        <hr>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">¡Comentar!</button>
+              <hr class="my-4">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</body>
+{% endblock %}

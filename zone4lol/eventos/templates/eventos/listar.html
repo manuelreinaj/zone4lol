@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<body>
+<div class="container" id="tituloEvent">
+    <h2 style="color: white;">Eventos de Zone4LoL</h2>
+</div>
+
+<section class="pricing py-5" style="background: linear-gradient(to right, #e6e6e6, white);">
+  <div class="container" >
+    <p class="h5">Estos son los eventos que ahora mismo se encuentran disponibles para asistir, ante cualquier duda contacta con nosotros.<p>
+      {% if request.user.is_staff %}
+        <a style="margin-top: 5%;" class="btn btn-primary" href="{% url 'evento_crear' %}">Registrar Evento +</a>
+    {% endif %}
+        <hr>
+    <div class="row">
+
+    {% if eventos %}
+    {% for evento in eventos %}
+
+    
+      <!-- Free Tier -->
+      <div class="col-lg-4">
+        
+        <div class="card mb-5 mb-lg-0 d-flex align-items-stretch">
+          <div class="card-body">
+            <h2 class=" text-muted text-uppercase text-center">{{ evento.titulo }}</h2>
+            <h4 class=" text-center">{{ evento.fecha_inic }}<span class="period"></span></h4>
+            {% if evento.link.isNull %}<h6 class="text-center">Link no disponible</h6>{%else%}<h6 style="margin-left: 15%; margin-right: 15%;" class="text-center"><span class="fa-li"></span>{{ evento.descripcion}}</h6>{% endif %}
+            <p class="d-flex justify-content-center">Haz click abajo para mas informacion+</p>
+            <h6 class="text-center"><span class="fa-li"></span><a href="{{ evento.link }}">{{ evento.link }}<a></h6>
+
+            <hr>
+                <ul style="list-style:none;">
+                        <li style="margin-left: 15%; margin-right: 15%;"><b>Vacantes de ayudantes: {{ evento.limite_ayu }}</b></li>
+                    {% if evento.ayudantes.all %}
+                        <li style="margin-left: 15%; margin-right: 15%;">Listas de ayudantes:</li>
+                    {% for socio in evento.ayudantes.all %}
+                        <li style="margin-left: 15%; margin-right: 15%;">-{{ socio.user_id.first_name }} {{ socio.user_id.last_name }}<li>
+                    {% endfor %}
+                    {% else %}
+                    <li style="margin-left: 15%; margin-right: 15%;">No hay ningun ayudante todavia.</li>
+                    {% endif %}
+                    <hr>
+                    <li style="margin-left: 15%; margin-right: 15%;">Para solicitar ir de ayudante a un evento debes ser <b>socio</b> y solicitarlo a traves de un correo electronico.</li>
+                </ul>
+            <div class="d-flex justify-content-center"> 
+                {% if request.user.is_staff %}
+                <a class="btn btn-primary izquierdabtn" href="{% url 'evento_editar' evento.id %}">Editar</a>
+                <a class="btn btn-danger derechabtn" href="{% url 'evento_eliminar' evento.id %}">Eliminar</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>    
+
+                
+
+    {% endfor %}
+    {% else %}
+    <h1>No hay eventos registrados.</h1>
+    {% endif %}
+
+
+</div>
+
+  </div>
+</section>
+</body>
+
+
+
+{% endblock %}

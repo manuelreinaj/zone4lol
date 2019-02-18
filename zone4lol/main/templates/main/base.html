@@ -1,0 +1,68 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %} Home {% endblock %}</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://startbootstrap.com/templates/agency/font-awesome-4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/3.4.93/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="{% static 'css/estilo.css' %}"/>
+	<script src="{% static 'js/funciones.js'%}"></script>
+
+</head>
+<body>
+	{% block header %}
+
+	<header>
+		<nav class="navbar navbar-expand-lg ">
+		  <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/logo-plano.png' %}"></a>
+		  <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarColor03">
+			<ul class="navbar-nav mr-auto col-sm-4">
+			  <li class="nav-item active">
+				<a class="nav-link h6" href="{% url 'index' %}">Home</a>
+			  </li>
+			  <li class="nav-item"> 
+				<a class="nav-link h6" href="{% url 'nosotros' %}">Nosotros</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link h6" href="{% url 'eventos_listar' %}">Eventos</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link h6" href="{% url 'foros_listar' %}">Foros</a>
+			  </li>
+			</ul>
+			  <ul class="nav navbar-nav navbar-right">
+				{% if not request.user.is_authenticated %}
+				  <li class="nav-item h6"><a class="nav-link" href="{% url 'usuario_signup' %}"><span class="icon mdi mdi-account-plus"></span> Registrarse</a></li>
+				  <li class="nav-item h6"><a class="nav-link" href="{% url 'usuario_login'  %}"><span class="icon mdi mdi-login"> Iniciar sesion</span></a></li>
+				{% else %}
+				  <li class="nav-item col-sm-6"></li>
+				  <li class="nav-item h6 col-sm-2" style="color: white;padding-top: 3%;">Hola, {{request.user.first_name}}</li>
+				  <li class="nav-item col-sm-2" style=" width: 100%; margin-right: 0;"><a class="nav-link" href="{% url 'socio_detalle' request.user.id %}"><img style="border-radius: 50%; width: 100%;" src="{{request.user.socio.imagen.url}}"></a></li>
+				  <li class="nav-item h6 col-sm-2" style=""><a style="margin-top:15%;" class="nav-link" href="{% url 'usuario_logout' %}?next={{ request.path | urlencode }}"><span class="icon mdi mdi-logout"></span> Cerras sesion</a></li>
+				{% endif %}
+				</ul>
+		  </div>
+		</nav>
+	</header>
+	
+	{% endblock %}
+	
+	{% block content %}
+	<h5>Contenido</h5>
+	{% endblock %}
+
+	{% block footer %}
+	{% include "main/footer.html" %}
+	{% endblock %}
+</body>
+</html>

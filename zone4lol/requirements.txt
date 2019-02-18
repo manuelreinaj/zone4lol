@@ -1,0 +1,5 @@
+django-debug-toolbar=1.11                
+django-jet=1.0.8
+django-reversion=3.0.3
+pillow=5.4.1
+sqlite=3.26.0  

@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<body style="background: url('{% static 'img/fondo3.jpg' %}') no-repeat center center fixed;-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;">
+<div class="col-sm-8 socioDet">
+	<div>
+	<h2 style="width: 30%; float:left;">Perfil</h2>
+	<img style="width: 25%; border: 1px solid black; float:right; margin-right: 5%;" src="{{ object.socio.imagen.url }}">
+	</div>
+    <p style="margin-top: 25%;" class="datosPer h6">Nombre: {{object.first_name}}</p>
+    <p class="datosPer h6">Apellidos: {{object.last_name}}</p>
+    <p class="datosPer h6">Nombre de usuario: {{object.username}}</p>
+    <p class="datosPer h6">Localidad: {{object.socio.localidad}}</p>
+    <p class="datosPer h6">Nombre de invocador: <input class="form-control" style="width: 55%; margin-top: 1%;" type="text" value="{{ object.socio.nombre_sum }}" id="myInput2" readonly></p>
+    <button class="btn btn-secondary" onclick="myFunction2()">Copiar nombre de invocador</button>
+    <p style="margin-bottom: 10%;" class="datosPer h6">Correo electronico: {{object.email}}</p>
+
+    {% ifequal request.user.id object.id %}
+		<a  class="btn btn-primary" href="{% url 'socio_editar' object.id%}">Editar datos</a>
+    {% endifequal %}
+</div>
+</body>
+
+{% endblock %}

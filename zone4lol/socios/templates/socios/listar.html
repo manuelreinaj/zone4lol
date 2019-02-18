@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<table class="table table-striped" style="background-color: white;">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre de usuario</td>
+            <td>nombre</td>
+            <td>apellidos</td>
+            <td>Nombre de invocador</td>
+            <td>localidad</td>
+            <td>socio</td>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% if object_list %}
+    {% for user in object_list%}
+        {% if not user.is_staff  %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td><a href="{% url 'socio_detalle' user.id %}">{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name}}</td>
+            <td>{{ user.socio.nombre_sum }}</td>
+            <td>{{ user.socio.localidad }}</td>
+            <td>{{ user.socio.socio }}</td>
+            <td><a class="btn btn-primary" href="{% url 'socio_editar' user.id %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'socio_eliminar' user.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    {% else %}
+    <h1>No hay socios registrados.</h1>
+    {% endif %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}
